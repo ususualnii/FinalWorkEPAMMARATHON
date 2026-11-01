@@ -1,0 +1,51 @@
+<div
+    class="dish-card"
+    role="button"
+    [tabindex]="isUnavailable() ? -1 : 0"
+    [class.unavailable]="isUnavailable()"
+    [style.max-width]="maxWidth() || null"
+    (click)="onCardClicked()"
+    (keydown.space)="onCardClicked()"
+    (keydown.enter)="onCardClicked()"
+  >
+    @if (isUnavailable()) {
+      <div class="status-badge">{{ dishStateLabel() }}</div>
+    }
+    @if (favoriteToggleEnabled()) {
+      <button
+        type="button"
+        class="favorite-button"
+        [class.active]="favorite()"
+        [attr.aria-pressed]="favorite()"
+        [attr.aria-label]="
+          favorite()
+            ? 'Remove ' + dish().name + ' from favorites'
+            : 'Add ' + dish().name + ' to favorites'
+        "
+        (click)="onFavoriteClicked($event)"
+        (keydown)="$event.stopPropagation()"
+      >
+        <img
+          [src]="favorite() ? 'assets/svg/favorite-filled.svg' : 'assets/svg/favorite.svg'"
+          alt=""
+        />
+      </button>
+    }
+    <img [src]="dish().imageUrl" alt="{{ dish().name }}" class="dish-image" />
+    <div class="dish-info">
+      <div class="dish-heading">
+        <div class="dish-name">{{ dish().name }}</div>
+        <div class="dish-meta">
+          <span class="dish-price">{{ dish().price | currency: '$' }}</span>
+          <span class="dish-weight">{{ dish().weight }}</span>
+        </div>
+      </div>
+      @if (preOrderEnabled()) {
+        <app-custom-button size="small" fullWidth [disabled]="isUnavailable()" (click)="preOrderClicked.emit()">
+          Pre-Order
+        </app-custom-button>
+      }
+    </div>
+    <ng-content select="[dish-footer]"></ng-content>
+  </div>
+

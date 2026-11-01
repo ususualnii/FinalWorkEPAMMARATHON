@@ -1,0 +1,49 @@
+.demo-badge {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.92);
+  color: #f8fafc;
+  font-size: 0.75rem;
+  line-height: 1.1rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.25);
+
+  &__dot {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+
+  &__reset {
+    flex: none;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid rgba(248, 250, 252, 0.4);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: inherit;
+    font-size: 0.6875rem;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(248, 250, 252, 0.12);
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .demo-badge {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+}

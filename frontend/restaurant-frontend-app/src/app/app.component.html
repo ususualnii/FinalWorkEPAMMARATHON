@@ -1,0 +1,11 @@
+<router-outlet />
+
+@if (demoMode) {
+  <aside class="demo-badge" aria-label="Demo mode">
+    <span class="demo-badge__dot" aria-hidden="true"></span>
+    <span>Demo preview — no AWS backend, data stays in this browser.</span>
+    <button type="button" class="demo-badge__reset" (click)="resetDemoData()">
+      Reset demo data
+    </button>
+  </aside>
+}
