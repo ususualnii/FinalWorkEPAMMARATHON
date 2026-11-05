@@ -1,6 +1,8 @@
 # Deployment Guide
 
-> **Live demo:** <https://ususualnii.github.io/FinalWorkEPAMMARATHON/> — the Angular front end running in static demo mode, with no AWS account required.
+> **Live demo (Render):** <https://final-work-epam-marathon-demo.onrender.com/> — the Angular front end running in static demo mode, with no AWS account required.
+>
+> **Mirror (GitHub Pages):** <https://ususualnii.github.io/FinalWorkEPAMMARATHON/>
 
 ## Final assignment: favourite dishes (Level 3)
 
@@ -52,6 +54,23 @@ python -m http.server 8080 --directory dist/restaurant-frontend-app/browser
 Demo credentials: `demo@greentasty.com` / `Password1` (the form is pre-filled; any credentials are accepted in demo mode).
 
 To build against a real backend, set `BACKEND_URL` instead of `DEMO_MODE` — the deployed application then uses the real AWS API, and the demo interceptor stays disabled because `demoMode` is `false`.
+
+### Deploy the demo to Render
+
+The live site is a Render **Static Site** that builds the `main` branch of `ususualnii/FinalWorkEPAMMARATHON` on every push:
+
+| Setting | Value |
+| --- | --- |
+| Repository | `ususualnii/FinalWorkEPAMMARATHON` |
+| Branch | `main` |
+| Root Directory | `frontend/restaurant-frontend-app` |
+| Build Command | `npm ci && DEMO_MODE=true npm run build -- --base-href /` |
+| Publish Directory | `dist/restaurant-frontend-app/browser` |
+| Environment variable | `NODE_VERSION=24.16.0` (matches `.nvmrc`) |
+
+Because the site is served from the domain root, the build uses `--base-href /`. The static site has one rewrite rule (`/*` -> `/index.html`, action **Rewrite**) so Angular routes such as `/menu` or `/reservations` work on a hard refresh.
+
+To trigger a redeploy, push to `main`; Render picks up the commit automatically.
 
 ### Deploy the demo to GitHub Pages
 
